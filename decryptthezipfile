@@ -1,0 +1,2 @@
+"""This program will decrypt the encrypted zip file by means of bruteforcing the list of passwords in rockyou.txt"""
+# 'rb' option denotes takes the password as bytes instead of string. Because extractall method need password value in bytes type
