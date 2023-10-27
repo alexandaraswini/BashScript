@@ -1,2 +1,28 @@
 """This program will decrypt the encrypted zip file by means of bruteforcing the list of passwords in rockyou.txt"""
 # 'rb' option denotes takes the password as bytes instead of string. Because extractall method need password value in bytes type
+
+from zipfile import ZipFile
+
+def attempt_extract(zf, password):
+    try:
+        zf.extractall(pwd=password)
+        return True
+    except:
+        return False
+
+def main():
+    print("[+] Beginning bruteforce ")
+    with ZipFile('enc.zip') as zf:
+        with open('rockyou.txt', 'rb') as pf:
+            for p in pf:
+                password = p.strip()
+                if attempt_extract(zf, password):
+                    print("[+] Correct password: %s" % password)
+                    exit(0)
+                else:
+                    print("[-] Incorrect password: %s" % password)
+
+    print("[+] Password not found in list")
+
+if __name__ == "__main__":
+    main()
